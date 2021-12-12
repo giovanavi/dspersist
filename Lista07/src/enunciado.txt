@@ -1,0 +1,7 @@
+A Lista 07 consiste em implementar as funcionalidades da Lista 06 usando Spring Data JPA.
+Deixar somente a inteface DAO. O @Primary usado na Lista 06 não será mais necessário.
+A aplicação deve ter consultas distintas usando:
+
+1. Consulta baseada no nome do método do Spring Data JPA
+2. @Query do Spring Data JPA
+3. @NamedQuery do JPA
