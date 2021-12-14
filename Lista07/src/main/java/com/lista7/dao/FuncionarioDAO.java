@@ -19,12 +19,12 @@ public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
 
     @Transactional
     @Modifying
-    @Query(name = "removeById")
-    void removeById(@Param("id") Integer id);
+    void deleteById(Integer id);
 
     List<Funcionario> findAll();
 
-    Funcionario findByCpf(String cpf);
+    @Query(name = "findByCpf")
+    Funcionario findByCpf(@Param("cpf") String cpf);
     
     @Query("select f from Funcionario f where f.matricula = :matricula")
     Funcionario findByMatricula(@Param("matricula") String matricula);

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 
-@NamedQuery(name = "removeById", query = "delete from Funcionario where id = :id")
+@NamedQuery(name = "findByCpf", query = "select f from Funcionario f where f.cpf = :cpf")
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -89,14 +89,14 @@ public class Principal implements CommandLineRunner {
                     String cpf = JOptionPane.showInputDialog("Digite o cpf do funcionário a ser excluído:");
                     f = funcionario.findByCpf(cpf);
                     if(find(f))
-                        funcionario.removeById(f.getId());
+                        funcionario.deleteById(f.getId());
                     break;
                 }
                 case "9": {//DELETE POR MATRICULA
                     String matricula = JOptionPane.showInputDialog("Digite a matricula do funcionário a ser excluído:");
                     f = funcionario.findByMatricula(matricula);
                     if(find(f))
-                        funcionario.removeById(f.getId());
+                        funcionario.deleteById(f.getId());
                     break;
                 }
                 case "10":
