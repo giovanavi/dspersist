@@ -12,8 +12,6 @@ import java.util.List;
 
 @Repository
 public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
-// (create - update) - (deleteByCpf - deleteByMatricula)    <- OK
-//  findByName - (findAll - findByCpf - findByMatricula)   <- OK
 
     Funcionario save(Funcionario entity);
 
@@ -30,15 +28,5 @@ public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
     Funcionario findByMatricula(@Param("matricula") String matricula);
 
     List<Funcionario> findByNomeContainingIgnoreCase(String nome);
-
-
-//    void create(Funcionario f);
-//    void update(Funcionario f);
-//    void deleteByCpf(String cpf);
-//    void deleteByMatricula(String matricula);
-//    List<Funcionario> findAll();
-//    List<Funcionario> findByName(String name);
-//    Funcionario findByCpf(String cpf);
-//    Funcionario findByMatricula(String matricula);
 
 }
