@@ -4,16 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 import trabalho2.dao.AlunoDAO;
+import trabalho2.dao.DisciplinaDAO;
 import trabalho2.entity.Aluno;
-import trabalho2.entity.Disciplina;
 
 import javax.swing.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 //Crie uma classe para adicionar via DAO pelo menos 6 alunos com suas respectivas disciplinas cursadas no banco de
@@ -26,6 +22,8 @@ import java.util.List;
 public class AlunoCRUD implements CommandLineRunner {
     @Autowired
     private AlunoDAO alunoDAO;
+    @Autowired
+    private DisciplinaDAO disciplinaDAO;
 
 //    @Transactional
     public void run(String... args) {
@@ -161,7 +159,7 @@ public class AlunoCRUD implements CommandLineRunner {
         StringBuilder sb = new StringBuilder();
         for (Aluno a: lista) {
             if(!a.getDisciplinasCursadas().isEmpty()) {
-                sb.append(a.getNome() + " cursa: ");
+                sb.append(a.getNome()).append(" cursa: ");
                 sb.append(a.getDisciplinasCursadas());
             }else{
                 sb.append(a.getNome());
@@ -180,7 +178,7 @@ public class AlunoCRUD implements CommandLineRunner {
         StringBuilder sb = new StringBuilder();
         for (Aluno a : lista) {
             int quant = a.getQuantDisciplinasCursadas(a.getId());
-            sb.append(a.getNome()+" está matriculado em "+quant+" disciplinas.");
+            sb.append(a.getNome()).append(" está matriculado em ").append(quant).append(" disciplinas.");
             sb.append("\n");
         }
         if(sb.isEmpty()){
@@ -203,17 +201,17 @@ public class AlunoCRUD implements CommandLineRunner {
         }
     }
 
-    public static void listAluno(Aluno a){
-        if(a == null){
-            JOptionPane.showMessageDialog(null, "Aluno não encontrado");
-        }else{
-            JOptionPane.showMessageDialog(null, a.toString());
-        }
-    }
+//    public static void listAluno(Aluno a){
+//        if(a == null){
+//            JOptionPane.showMessageDialog(null, "Aluno não encontrado");
+//        }else{
+//            JOptionPane.showMessageDialog(null, a.toString());
+//        }
+//    }
 
-    public static void setDisciplinaParaAluno(Aluno a) {
-
-    }
+//    public static void setDisciplinaParaAluno(Aluno a) {
+//
+//    }
 
         public static void setAluno(Aluno a){
         String nome = JOptionPane.showInputDialog("Nome", a.getNome());

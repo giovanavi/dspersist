@@ -10,7 +10,6 @@ import trabalho2.entity.Aluno;
 import trabalho2.entity.Disciplina;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class DisciplinaCRUD implements CommandLineRunner {
 
     @Transactional
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         label:
         while (true) {
             Disciplina d = new Disciplina();
@@ -37,7 +36,7 @@ public class DisciplinaCRUD implements CommandLineRunner {
             } else if (op.isEmpty()) {
                 continue;
             }
-            switch (op){
+            switch (op) {
                 case "1": {//Inserir disciplina
                     setDisciplina(d);
                     disciplinaDAO.save(d);
@@ -89,11 +88,6 @@ public class DisciplinaCRUD implements CommandLineRunner {
                         listAlunosCursandoDisciplina(d);
                     }
                     break ;
-//                    d = disciplinaDAO.findByCodigo(codigo);
-//                    if(find(d)) {
-//                        listAlunosCursandoDisciplina(d);
-//                    }
-//                    break ;
                 }
                 case "8": {//Excluir disciplina por código
                     String codigo = JOptionPane.showInputDialog("Digite o código da disciplina: ");
@@ -143,13 +137,13 @@ public class DisciplinaCRUD implements CommandLineRunner {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Disciplina {");
-        sb.append(" id="+d.getId());
-        sb.append(" - codigo="+d.getCodigo());
-        sb.append(" - nome="+d.getNome());
+        sb.append(" id=").append(d.getId());
+        sb.append(" - codigo=").append(d.getCodigo());
+        sb.append(" - nome=").append(d.getNome());
         sb.append("\nAlunos [");
         for (Aluno aluno : d.getAlunos()) {
-            sb.append(" nome="+aluno.getNome());
-            sb.append(" - matricula="+aluno.getMatricula());
+            sb.append(" nome=").append(aluno.getNome());
+            sb.append(" - matricula=").append(aluno.getMatricula());
         }
         sb.append(" ] }");
 
@@ -190,9 +184,9 @@ public class DisciplinaCRUD implements CommandLineRunner {
 
     public Set<Aluno> matricular(){
         boolean isTrue = true;
-        Set<Aluno> alunos = new HashSet<Aluno>();
+        Set<Aluno> alunos = new HashSet<>();
         while(isTrue) {
-            Aluno aluno = null;
+            Aluno aluno;
             String id = JOptionPane.showInputDialog(null, "Digite o id do aluno a ser matriculado. (Digite 0 para sair)");
             if(Integer.parseInt(id) > 0){
                 aluno = alunoDAO.findAlunoById(Integer.parseInt(id));

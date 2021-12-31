@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +17,13 @@ public interface AlunoDAO extends JpaRepository<Aluno, Integer> {
 
     public List<Aluno> findAll();
 
+    public Optional<Aluno> findById(Integer id);
+
     @Query("select a from Aluno a where a.id = :id")
     public Aluno findAlunoById(@Param("id") Integer id);
 
     public List<Aluno> findByNomeContainingIgnoreCase(String nome);
+
 
     public Aluno findByMatricula(String matricula);
 

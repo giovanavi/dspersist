@@ -33,20 +33,23 @@ INSERIR DISCIPLINAS AOS ALUNOS
 TESTAR DISCIPLINAS
 FAZER CLASS INSERIR ALUNOS
 
-
-
-MUDAR TO.STRING NOS METODOS DE BUSCA
-MUDAR O TIPO DATA
+MUDAR TO.STRING NOS MÉTODOS DE BUSCA
 
 AlunoCRUD
-->Save / Update, DeleteDById / eleteByMatricula, FindById / ByMatricula
-->Matricular disciplinas para um aluno
-->Find matricula e nome BY matricula (já feito por JPA)
-->Find disciplinas cursadas pelos alunos BY %nome% (já feito por JPA)
-->Show nome_alunos + qtd de disciplinas cursadas por cada aluno ALL (feito por implementação de método)
-->Find alunos nascidos a partir de uma data (pode ser feito por JPA)
+-> Save / Update (FEITO POR JPA)
+-> DeleteById / DeleteByMatricula (FEITO POR JPA)
+-> FindById (FEITO COM @Query)/ ByMatricula (FEITO POR JPA)
+-> FindByName (FEITO POR JPA)
+-> Matricular disciplinas para um aluno (FAZER [BASE DE DISCIPLINA])
+-> Find matricula e nome BY matricula (FEITO POR JPA)
+-> Find disciplinas cursadas pelos alunos BY %nome% (FEITO POR JPA)
+-> Show nome_alunos + qtd de disciplinas cursadas por cada aluno ALL (FEITO POR IMPLEMENTAÇÃO DE MÉTODO)
+-> Find alunos nascidos a partir de uma data (FEITO POR JPA)
 
 DisciplinaCRUD
-->Save / Update, deleteById / deleTeByCodigo, findByID / ByCodigo ()
-->Matricular alunos e uma disciplina (feito)
-->Find alunos matriculados na disciplina ByCodigo (feito por JPA [implementar print])
+-> Save / Update (FEITO POR JPA)
+-> DeleteById (FAZER) / DeleteByCodigo (FEITO POR JPA)
+-> FindByID / ByCodigo (FEITO POR JPA)
+-> FindByName (FEITO POR JPA)
+-> Matricular alunos e uma disciplina (FEITO POR JPA)
+-> Find alunos matriculados na disciplina ByCodigo (feito por JPA [implementar print])
