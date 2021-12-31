@@ -1,8 +1,13 @@
 package trabalho2.entity;
 
 import lombok.*;
+import net.bytebuddy.build.Plugin;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
-import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
-//@ToString(exclude = "disciplinas")
+@ToString(exclude = "disciplinas")
 @Entity
 @Table(name = "alunos")
 public class Aluno {
@@ -40,20 +45,28 @@ public class Aluno {
 
 //    @Column(unique = true)
     @Column(name = "data_nascimento")
-    @NonNull @Getter @Setter private String dataNascimento;
+    @NonNull @Getter @Setter private LocalDate dataNascimento;
 
-    @ManyToMany(mappedBy = "alunos", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "alunos")
     @Getter @Setter private List<Disciplina> disciplinas;
 
-    @Override
-    public String toString() {
-        return  " id: " + id + " - cpf: " + cpf + " - matricula: " + matricula + " - nome: " + nome +
-                " - email: " + email + " - dataNascimento: " + dataNascimento;
-    }
+//    @Override
+//    public String toString() {
+//        return "Aluno{" +
+//                "id=" + id +
+//                ", cpf='" + cpf + '\'' +
+//                ", matricula='" + matricula + '\'' +
+//                ", nome='" + nome + '\'' +
+//                ", email='" + email + '\'' +
+//                ", dataNascimento=" + dataNascimento +
+//                ", disciplinas=" + disciplinas +
+//                '}';
+//    }
 
+    @Transactional
     public StringBuilder getDisciplinasCursadas(){
         StringBuilder sb = new StringBuilder();
-        if(this.disciplinas!=null) {
+        if(!this.disciplinas.isEmpty()) {
             sb.append(disciplinas.get(0).getNome());
             for (int i=1; i<this.disciplinas.size(); i++) {
                 sb.append(", "+getDisciplinas().get(i).getNome());
@@ -62,6 +75,7 @@ public class Aluno {
         return sb;
     }
 
+    @Transactional
     public int getQuantDisciplinasCursadas(Integer id){
         int quantidade = 0;
         if(!this.disciplinas.isEmpty()) {
@@ -74,3 +88,4 @@ public class Aluno {
         return quantidade;
     }
 }
+

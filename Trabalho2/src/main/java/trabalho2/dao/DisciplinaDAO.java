@@ -2,17 +2,20 @@ package trabalho2.dao;
 
 import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import trabalho2.entity.Disciplina;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-
+@Repository
 public interface DisciplinaDAO extends JpaRepository<Disciplina, Integer> {
 
     public List<Disciplina> findAll();
 
     public Disciplina findByCodigo(String codigo);
+
+    public Disciplina findAlunosByCodigo(String codigo);
 
     public List<Disciplina> findByNomeContainingIgnoreCase(String nome);
     //Dado um código de disciplina, mostrar todos os alunos que a cursaram.

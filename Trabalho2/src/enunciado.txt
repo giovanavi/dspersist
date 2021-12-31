@@ -24,6 +24,29 @@ e) Dada uma data, mostrar somente os alunos que nasceram depois dela. (ALUNO)
 
 
 
-CRIAR METODOS PARA GUARDAR PESQUISAS ESPECIFICAS
+CRIAR METODOS PARA GUARDAR PESQUISAS ESPECÍFICAS
 EX: a) Mostrar os nomes dos alunos e todas as suas disciplinas cursadas somente para alunos com nomes
 contendo determinada string. Ou seja: a string de busca deve ser um parâmetro nomeado da consulta. (ALUNO)
+
+
+INSERIR DISCIPLINAS AOS ALUNOS
+TESTAR DISCIPLINAS
+FAZER CLASS INSERIR ALUNOS
+
+
+
+MUDAR TO.STRING NOS METODOS DE BUSCA
+MUDAR O TIPO DATA
+
+AlunoCRUD
+->Save / Update, DeleteDById / eleteByMatricula, FindById / ByMatricula
+->Matricular disciplinas para um aluno
+->Find matricula e nome BY matricula (já feito por JPA)
+->Find disciplinas cursadas pelos alunos BY %nome% (já feito por JPA)
+->Show nome_alunos + qtd de disciplinas cursadas por cada aluno ALL (feito por implementação de método)
+->Find alunos nascidos a partir de uma data (pode ser feito por JPA)
+
+DisciplinaCRUD
+->Save / Update, deleteById / deleTeByCodigo, findByID / ByCodigo ()
+->Matricular alunos e uma disciplina (feito)
+->Find alunos matriculados na disciplina ByCodigo (feito por JPA [implementar print])

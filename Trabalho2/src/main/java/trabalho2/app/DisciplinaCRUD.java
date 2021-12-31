@@ -3,11 +3,17 @@ package trabalho2.app;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.Transactional;
+import trabalho2.dao.AlunoDAO;
 import trabalho2.dao.DisciplinaDAO;
+import trabalho2.entity.Aluno;
 import trabalho2.entity.Disciplina;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //Crie uma classe para inserir, atualizar e deletar alunos e disciplinas separadamente. A classe deve permitir também
 //        adicionar disciplinas cadastradas a um determinado aluno também já cadastrado.
@@ -16,7 +22,10 @@ import java.util.List;
 public class DisciplinaCRUD implements CommandLineRunner {
     @Autowired
     private DisciplinaDAO disciplinaDAO;
+    @Autowired
+    private AlunoDAO alunoDAO;
 
+    @Transactional
     @Override
     public void run(String... args) throws Exception {
         label:
@@ -34,7 +43,17 @@ public class DisciplinaCRUD implements CommandLineRunner {
                     disciplinaDAO.save(d);
                     break;
                 }
-                case "2":{//Atualizar disciplina por codigo
+                case "2":{//Matricular aluno na disciplina
+                    String codigo = JOptionPane.showInputDialog("Digite o código da disciplina para matricular aluno");
+                    d = disciplinaDAO.findByCodigo(codigo);
+                    if(find(d)){
+                        Set<Aluno> alunos = matricular();
+                        d.getAlunos().addAll(alunos);
+                        disciplinaDAO.save(d);
+                    }
+                    break;
+                }
+                case "3":{//Atualizar disciplina por codigo
                     String codigo = JOptionPane.showInputDialog("Digite o código da disciplina: ");
                     d = disciplinaDAO.findByCodigo(codigo);
                     if(find(d)){
@@ -43,18 +62,18 @@ public class DisciplinaCRUD implements CommandLineRunner {
                     }
                     break;
                 }
-                case "3":{//Listar disciplinas
+                case "4":{//Listar disciplinas
                     List<Disciplina> lista = disciplinaDAO.findAll();
                     listDisciplinas(lista);
                     break;
                 }
-                case "4":{//Buscar disciplinas por nome
+                case "5":{//Buscar disciplinas por nome
                     String nome = JOptionPane.showInputDialog("Digite o nome da disciplina: ");
                     List<Disciplina> lista = disciplinaDAO.findByNomeContainingIgnoreCase(nome);
                     listDisciplinas(lista);
                     break;
                 }
-                case "5":{//Buscar disciplina por código
+                case "6":{//Buscar disciplina por código
                     String codigo = JOptionPane.showInputDialog("Digite o código da disciplina: ");
                     d = disciplinaDAO.findByCodigo(codigo);
                     if(find(d)){
@@ -62,15 +81,21 @@ public class DisciplinaCRUD implements CommandLineRunner {
                     }
                     break ;
                 }
-                case "6": {//Mostrar alunos que cursam uma disciplina dado o código
+                case "7": {//Mostrar alunos que cursam uma disciplina dado o código
                     String codigo = JOptionPane.showInputDialog("Digite o código da disciplina: ");
-                    d = disciplinaDAO.findByCodigo(codigo);
-                    if(find(d)) {
+                    d = disciplinaDAO.findAlunosByCodigo(codigo);
+                    if (find(d)) {
+                        System.out.println(d.toString());
                         listAlunosCursandoDisciplina(d);
                     }
                     break ;
+//                    d = disciplinaDAO.findByCodigo(codigo);
+//                    if(find(d)) {
+//                        listAlunosCursandoDisciplina(d);
+//                    }
+//                    break ;
                 }
-                case "7": {//Excluir disciplina por código
+                case "8": {//Excluir disciplina por código
                     String codigo = JOptionPane.showInputDialog("Digite o código da disciplina: ");
                     d = disciplinaDAO.findByCodigo(codigo);
                     if(find(d)){
@@ -78,7 +103,7 @@ public class DisciplinaCRUD implements CommandLineRunner {
                     }
                     break;
                 }
-                case "8": {//Fechar menu
+                case "9": {//Fechar menu
                     break label;
                 }
                 default:
@@ -92,13 +117,14 @@ public class DisciplinaCRUD implements CommandLineRunner {
         return JOptionPane.showInputDialog("""
                 Selecione uma opção:
                 1 - Inserir disciplina
-                2 - Atualizar disciplina por codigo
-                3 - Listar disciplinas
-                4 - Buscar disciplinas por nome
-                5 - Buscar disciplina por código
-                6 - Mostrar alunos que cursam uma disciplina
-                7 - Excluir disciplina por código
-                8 - Fechar menu""");
+                2 - Matricular aluno na disciplina
+                3 - Atualizar disciplina por codigo
+                4 - Listar disciplinas
+                5 - Buscar disciplinas por nome
+                6 - Buscar disciplina por código
+                7 - Mostrar alunos que cursam uma disciplina
+                8 - Excluir disciplina por código
+                9 - Voltar para o menu principal""");
     }
 
     public static boolean find(Disciplina d) {
@@ -112,12 +138,20 @@ public class DisciplinaCRUD implements CommandLineRunner {
 
 //    DISICPLINA CURSADA POR : XXXXXX, XYYYYYYY, YYYY;
 
+    @Transactional
     public static void listAlunosCursandoDisciplina(Disciplina d){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(d.getNome()+" cursada por : ");
-        sb.append("\n") ;
-        sb.append(d.getAlunosMatriculados());
+        sb.append("Disciplina {");
+        sb.append(" id="+d.getId());
+        sb.append(" - codigo="+d.getCodigo());
+        sb.append(" - nome="+d.getNome());
+        sb.append("\nAlunos [");
+        for (Aluno aluno : d.getAlunos()) {
+            sb.append(" nome="+aluno.getNome());
+            sb.append(" - matricula="+aluno.getMatricula());
+        }
+        sb.append(" ] }");
 
         if(sb.isEmpty()){
             JOptionPane.showMessageDialog(null, "Nenhum aluno cursa essa disciplina no momento.");
@@ -152,5 +186,25 @@ public class DisciplinaCRUD implements CommandLineRunner {
         String codigo = JOptionPane.showInputDialog("Código", d.getCodigo());
         d.setNome(nome);
         d.setCodigo(codigo);
+    }
+
+    public Set<Aluno> matricular(){
+        boolean isTrue = true;
+        Set<Aluno> alunos = new HashSet<Aluno>();
+        while(isTrue) {
+            Aluno aluno = null;
+            String id = JOptionPane.showInputDialog(null, "Digite o id do aluno a ser matriculado. (Digite 0 para sair)");
+            if(Integer.parseInt(id) > 0){
+                aluno = alunoDAO.findAlunoById(Integer.parseInt(id));
+                if(aluno != null){
+                    alunos.add(aluno);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Aluno não encontrado.");
+                }
+            }else{
+                isTrue = false;
+            }
+        }
+        return alunos;
     }
 }
