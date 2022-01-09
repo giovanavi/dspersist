@@ -30,7 +30,10 @@ public class Principal {
 //        SpringApplicationBuilder builder = new SpringApplicationBuilder(AlunoCRUD.class);
 //        builder.headless(false).run();
 
-        SpringApplicationBuilder builder = new SpringApplicationBuilder(DisciplinaCRUD.class);
+//        SpringApplicationBuilder builder = new SpringApplicationBuilder(DisciplinaCRUD.class);
+//        builder.headless(false).run();
+
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(Teste.class);
         builder.headless(false).run();
 
 //        SpringApplicationBuilder builder = new SpringApplicationBuilder(InserirAlunos.class);
@@ -38,7 +41,6 @@ public class Principal {
 
 //        label:
 //        while (true) {
-//            Disciplina d = new Disciplina();
 //            String op = menu();
 //            if (op == null) {
 //                break;
@@ -56,7 +58,12 @@ public class Principal {
 //                    builder.headless(false).run();
 //                    break;
 //                }
-//                case "3": //Fecha menu principal
+//                case "3": {//Menu Disciplinas
+//                    SpringApplicationBuilder builder = new SpringApplicationBuilder(DisciplinaCRUD.class);
+//                    builder.headless(false).run();
+//                    break;
+//                }
+//                case "": //Fecha menu principal
 //                    break label;
 //                default:
 //                    JOptionPane.showMessageDialog(null, "Comando inválido.");
@@ -89,8 +96,8 @@ public class Principal {
     public static String menu(){
         return JOptionPane.showInputDialog("""
                 Selecione uma opção:
-                1 - Alunos
-                2 - Disciplinas
+                1 - Menu Alunos
+                2 - Menu Disciplinas
                 3 - Fechar menu""");
     }
 }

@@ -1,10 +1,8 @@
 package trabalho2.entity;
 
 import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 //id, código e nome
@@ -29,21 +27,8 @@ public class Disciplina {
 
     @Getter @Setter private String nome;
 
-    @ManyToMany
-    @JoinTable(name = "disciplinas_alunos",
-        joinColumns = @JoinColumn(name = "disciplina_fk"),
-        inverseJoinColumns = @JoinColumn(name = "aluno_fk"))
+    @ManyToMany(mappedBy = "disciplinas")
     @Getter @Setter private Set<Aluno> alunos;
-
-//    @Override
-//    public String toString() {
-//        return "Disciplina{" +
-//                "id=" + id +
-//                ", codigo='" + codigo + '\'' +
-//                ", nome='" + nome + '\'' +
-//                ", alunos=" + alunos +
-//                '}';
-//    }
 
 //    @Transactional
 //    public StringBuilder getAlunosMatriculados(){

@@ -40,10 +40,10 @@ AlunoCRUD
 -> DeleteById / DeleteByMatricula (FEITO POR JPA)
 -> FindById (FEITO COM @Query)/ ByMatricula (FEITO POR JPA)
 -> FindByName (FEITO POR JPA)
--> Matricular disciplinas para um aluno (FAZER [BASE DE DISCIPLINA])
--> Find matricula e nome BY matricula (FEITO POR JPA)
+-> Matricular disciplinas para um aluno (FEITO)
+-> Find matricula e nome BY matricula (FEITO POR NAMED QUERY)
 -> Find disciplinas cursadas pelos alunos BY %nome% (FEITO POR JPA)
--> Show nome_alunos + qtd de disciplinas cursadas por cada aluno ALL (FEITO POR IMPLEMENTAÇÃO DE MÉTODO)
+-> Show nome_alunos + qtd de disciplinas cursadas por cada aluno ALL (FEITO POR NATIVE QUERY)
 -> Find alunos nascidos a partir de uma data (FEITO POR JPA)
 
 DisciplinaCRUD

@@ -10,6 +10,7 @@ import trabalho2.entity.Aluno;
 import trabalho2.entity.Disciplina;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,16 +43,17 @@ public class DisciplinaCRUD implements CommandLineRunner {
                     disciplinaDAO.save(d);
                     break;
                 }
-                case "2":{//Matricular aluno na disciplina
-                    String codigo = JOptionPane.showInputDialog("Digite o código da disciplina para matricular aluno");
-                    d = disciplinaDAO.findByCodigo(codigo);
-                    if(find(d)){
-                        Set<Aluno> alunos = matricular();
-                        d.getAlunos().addAll(alunos);
-                        disciplinaDAO.save(d);
-                    }
-                    break;
-                }
+//                case "2":{//Matricular aluno na disciplina
+//                    String codigo = JOptionPane.showInputDialog("Digite o código da disciplina para matricular aluno");
+//                    d = disciplinaDAO.findByCodigo(codigo);
+//                    if(find(d)){
+//                        Set<Disciplina> disciplinas = new HashSet<>();
+//                        disciplinas.add(d);
+//
+//                        matricularAlunos(disciplinas);
+//                    }
+//                    break;
+//                }
                 case "3":{//Atualizar disciplina por codigo
                     String codigo = JOptionPane.showInputDialog("Digite o código da disciplina: ");
                     d = disciplinaDAO.findByCodigo(codigo);
@@ -68,7 +70,7 @@ public class DisciplinaCRUD implements CommandLineRunner {
                 }
                 case "5":{//Buscar disciplinas por nome
                     String nome = JOptionPane.showInputDialog("Digite o nome da disciplina: ");
-                    List<Disciplina> lista = disciplinaDAO.findByNomeContainingIgnoreCase(nome);
+                    List<Disciplina> lista = disciplinaDAO.findByNomeContaining(nome);
                     listDisciplinas(lista);
                     break;
                 }
@@ -94,6 +96,9 @@ public class DisciplinaCRUD implements CommandLineRunner {
                     d = disciplinaDAO.findByCodigo(codigo);
                     if(find(d)){
                         disciplinaDAO.delete(d);
+                        for (Aluno aluno : d.getAlunos()) {
+                            aluno.getDisciplinas().remove(d);
+                        }
                     }
                     break;
                 }
@@ -136,16 +141,18 @@ public class DisciplinaCRUD implements CommandLineRunner {
     public static void listAlunosCursandoDisciplina(Disciplina d){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Disciplina {");
+        sb.append("Disciplina :");
         sb.append(" id=").append(d.getId());
         sb.append(" - codigo=").append(d.getCodigo());
         sb.append(" - nome=").append(d.getNome());
-        sb.append("\nAlunos [");
+        sb.append("\n");
+        //        sb.append("\nAlunos {");
         for (Aluno aluno : d.getAlunos()) {
-            sb.append(" nome=").append(aluno.getNome());
-            sb.append(" - matricula=").append(aluno.getMatricula());
+            sb.append(aluno).append("\n");
+//            sb.append(" nome=").append(aluno.getNome());
+//            sb.append(" - matricula=").append(aluno.getMatricula());
         }
-        sb.append(" ] }");
+//        sb.append(" }");
 
         if(sb.isEmpty()){
             JOptionPane.showMessageDialog(null, "Nenhum aluno cursa essa disciplina no momento.");
@@ -182,23 +189,25 @@ public class DisciplinaCRUD implements CommandLineRunner {
         d.setCodigo(codigo);
     }
 
-    public Set<Aluno> matricular(){
-        boolean isTrue = true;
-        Set<Aluno> alunos = new HashSet<>();
-        while(isTrue) {
-            Aluno aluno;
-            String id = JOptionPane.showInputDialog(null, "Digite o id do aluno a ser matriculado. (Digite 0 para sair)");
-            if(Integer.parseInt(id) > 0){
-                aluno = alunoDAO.findAlunoById(Integer.parseInt(id));
-                if(aluno != null){
-                    alunos.add(aluno);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Aluno não encontrado.");
-                }
-            }else{
-                isTrue = false;
-            }
-        }
-        return alunos;
-    }
+    //matricular alunos
+//    public void matricularAlunos(Set<Disciplina> disciplina){
+//        boolean isTrue = true;
+//        while(isTrue) {
+//            Aluno aluno;
+//            String id = JOptionPane.showInputDialog(null, "Digite o id do aluno a ser matriculado. (Digite 0 para sair)");
+//            if(Integer.parseInt(id) > 0){
+//                aluno = alunoDAO.findAlunoId(Integer.parseInt(id));
+//                if(aluno != null){
+//                    JOptionPane.showMessageDialog(null, "Aluno:" +aluno);
+//                    aluno.setDisciplinas(disciplina);
+//                    alunoDAO.save(aluno);
+//                }else{
+//                    JOptionPane.showMessageDialog(null,"Aluno não encontrado.");
+//                }
+//            }else{
+//                isTrue = false;
+//            }
+//        }
+//
+//    }
 }

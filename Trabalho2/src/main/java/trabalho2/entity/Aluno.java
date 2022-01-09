@@ -1,15 +1,11 @@
 package trabalho2.entity;
 
 import lombok.*;
-import net.bytebuddy.build.Plugin;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 //id, cpf, matrícula, nome, email e data de nascimento.
 //Os campos id, código, matrícula e email, considerados individualmente, não devem permitir duplicação,
@@ -18,6 +14,15 @@ import java.util.List;
 //um aluno pode cursar várias disciplinas e uma disciplinas pode ser cursada por vários alunos.
 
 //Aluno(1-n) -----------------  (n)Disciplina
+
+@NamedQueries({
+        @NamedQuery(name = "Aluno.findNomeAndEmail",
+                query = "SELECT new trabalho2.entity.Aluno (a.nome, a.email)" +
+                        "FROM Aluno a WHERE a.matricula = :matricula"),
+        @NamedQuery(name = "Aluno.findNomeAndDisciplinas",
+                        query = "SELECT new trabalho2.entity.Aluno(a.nome, d.nome)" +
+                                "FROM Aluno a, Disciplina d WHERE a.nome like :nome")
+})
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -47,45 +52,44 @@ public class Aluno {
     @Column(name = "data_nascimento")
     @NonNull @Getter @Setter private LocalDate dataNascimento;
 
-    @ManyToMany(mappedBy = "alunos")
-    @Getter @Setter private List<Disciplina> disciplinas;
+    @ManyToMany
+    @JoinTable(name = "alunos_disciplinas",
+            joinColumns = @JoinColumn(name = "aluno_fk"),
+            inverseJoinColumns = @JoinColumn(name = "disciplina_fk"))
+    @Getter @Setter private Set<Disciplina> disciplinas;
 
-//    @Override
-//    public String toString() {
-//        return "Aluno{" +
-//                "id=" + id +
-//                ", cpf='" + cpf + '\'' +
-//                ", matricula='" + matricula + '\'' +
-//                ", nome='" + nome + '\'' +
-//                ", email='" + email + '\'' +
-//                ", dataNascimento=" + dataNascimento +
-//                ", disciplinas=" + disciplinas +
-//                '}';
+    @Transient
+    @Getter @Setter private long quant;
+
+    public Aluno(String nome, String email){
+        this.nome = nome;
+        this.email = email;
+    }
+
+
+//    @Transactional
+//    public StringBuilder getDisciplinasCursadas(){
+//        StringBuilder sb = new StringBuilder();
+//        if(!this.disciplinas.isEmpty()) {
+//            sb.append(disciplinas.get(0).getNome());
+//            for (int i=1; i<this.disciplinas.size(); i++) {
+//                sb.append(", "+getDisciplinas().get(i).getNome());
+//            }
+//        }
+//        return sb;
 //    }
 
-    @Transactional
-    public StringBuilder getDisciplinasCursadas(){
-        StringBuilder sb = new StringBuilder();
-        if(!this.disciplinas.isEmpty()) {
-            sb.append(disciplinas.get(0).getNome());
-            for (int i=1; i<this.disciplinas.size(); i++) {
-                sb.append(", "+getDisciplinas().get(i).getNome());
-            }
-        }
-        return sb;
-    }
-
-    @Transactional
-    public int getQuantDisciplinasCursadas(Integer id){
-        int quantidade = 0;
-        if(!this.disciplinas.isEmpty()) {
-            for (Disciplina disciplna : this.disciplinas) {
-                quantidade++;
-            }
-        }else{
-            return 0;
-        }
-        return quantidade;
-    }
+//    @Transactional
+//    public int getQuantDisciplinasCursadas(){
+//        int quantidade = 0;
+//        if(!this.disciplinas.isEmpty()) {
+//            for (Disciplina disciplna : this.disciplinas) {
+//                quantidade++;
+//            }
+//        }else{
+//            return 0;
+//        }
+//        return quantidade;
+//    }
 }
 
