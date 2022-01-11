@@ -3,6 +3,7 @@ package trabalho2.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Set;
 
 //id, código e nome
@@ -13,13 +14,12 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "alunos")
 @Entity
 @Table(name = "disciplinas")
 public class Disciplina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "disciplina_id", unique = true)
+    @Column(unique = true)
     @Getter @Setter private Integer id;
 
     @Column(unique = true)
@@ -30,15 +30,11 @@ public class Disciplina {
     @ManyToMany(mappedBy = "disciplinas")
     @Getter @Setter private Set<Aluno> alunos;
 
-//    @Transactional
-//    public StringBuilder getAlunosMatriculados(){
-//        StringBuilder sb = new StringBuilder();
-//        if(!this.alunos.isEmpty()) {
-//            sb.append(alunos.get(0).getNome());
-//            for (int i=1; i<this.alunos.size(); i++) {
-//                sb.append(", "+getAlunos().get(i).getNome());
-//            }
-//        }
-//        return sb;
-//    }
+    @Override
+    public String toString() {
+        return "Disciplina{" +
+                " id: " + id +
+                " - código: " + codigo +
+                " - nome: " + nome + " }";
+    }
 }

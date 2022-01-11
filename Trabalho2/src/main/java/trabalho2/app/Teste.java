@@ -4,34 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
-import trabalho2.dao.AlunoDAO;
-import trabalho2.dao.DisciplinaDAO;
-import trabalho2.entity.Aluno;
-import trabalho2.entity.Disciplina;
-
-import javax.swing.*;
-import java.text.ParseException;
-import java.util.List;
+import trabalho2.dao.AlunoRepository;
+import trabalho2.dao.DisciplinaRepository;
 
 
 @ComponentScan("trabalho2")
 public class Teste implements CommandLineRunner {
     @Autowired
-    private DisciplinaDAO disciplinaDAO;
+    private DisciplinaRepository disciplinaRepository;
     @Autowired
-    private AlunoDAO alunoDAO;
+    private AlunoRepository alunoRepository;
 
     @Override
     @Transactional
-    public void run(String... args) throws ParseException {
+    public void run(String... args) {
 
 //        Aluno a1 = new Aluno();
 //        a1.setNome("Joao");a1.setEmail("joao@gmail.com");a1.setCpf("12345678990");a1.setDataNascimento("12/12/2012");a1.setMatricula("123456");
-//        a1 = alunoDAO.save(a1);
+//        a1 = alunoRepository.save(a1);
 //
 //        Aluno a2 = new Aluno();
 //        a2.setNome("Maria");a2.setEmail("maria@gmail.com");a2.setCpf("09876543212");a2.setDataNascimento("10/10/2010");a2.setMatricula("654321");
-//        a2 = alunoDAO.save(a2);
+//        a2 = alunoRepository.save(a2);
 //
 //        List<Aluno> alunos = new ArrayList<>();
 //        alunos.add(a1);
@@ -42,10 +36,10 @@ public class Teste implements CommandLineRunner {
 //        d.setNome("Matematica");
 //        d.setAlunos(alunos);
 //
-//        d = disciplinaDAO.save(d);
+//        d = disciplinaRepository.save(d);
 //        System.out.println("Disciplina "+ d.getNome()+" salva.");
 
-//        Disciplina d = disciplinaDAO.findByCodigo("123");
+//        Disciplina d = disciplinaRepository.findByCodigo("123");
 //        System.out.println("Disciplina "+d.getNome());
 //        for (Aluno aluno : d.getAlunos()) {
 //            System.out.println("Aluno: "+aluno.getNome()+ " " );
@@ -54,10 +48,10 @@ public class Teste implements CommandLineRunner {
 //        Disciplina d2 = new Disciplina();
 //        d2.setCodigo("456");
 //        d2.setNome("Portugues");
-//        d2 = disciplinaDAO.save(d2);
+//        d2 = disciplinaRepository.save(d2);
 
-//        Aluno a1 = alunoDAO.findByMatricula("123456");
-//        Aluno a2 = alunoDAO.findByMatricula("654321");
+//        Aluno a1 = alunoRepository.findByMatricula("123456");
+//        Aluno a2 = alunoRepository.findByMatricula("654321");
 
 
 //        List<Aluno> lista = new ArrayList<>();
@@ -65,24 +59,24 @@ public class Teste implements CommandLineRunner {
 //        lista.add(a2);
 
 
-//        Disciplina dd = disciplinaDAO.findByCodigo("123");
+//        Disciplina dd = disciplinaRepository.findByCodigo("123");
 //        dd.setAlunos(lista);
-//        dd = disciplinaDAO.save(dd);
+//        dd = disciplinaRepository.save(dd);
 //
 //        System.out.println("Aluno: "+ a1.getNome()+" matriculado em "+dd.getNome());
 //        System.out.println("Aluno: "+ a2.getNome()+" matriculado em "+dd.getNome());
 
-//        Disciplina d = disciplinaDAO.findByCodigo("123");
-//        disciplinaDAO.delete(d);
+//        Disciplina d = disciplinaRepository.findByCodigo("123");
+//        disciplinaRepository.delete(d);
 
-//            Aluno a = alunoDAO.findByMatricula("123456")
-//            alunoDAO.delete(a);
+//            Aluno a = alunoRepository.findByMatricula("123456")
+//            alunoRepository.delete(a);
 
 
 //        Aluno a1 = new Aluno();
 //        a1.setNome("Joao");a1.setEmail("joao@gmail.com");a1.setCpf("12345678990");
 //        a1.setDataNascimento(new SimpleDateFormat("20/12/2002"));a1.setMatricula("123456");
-//        alunoDAO.save(a1);
+//        alunoRepository.save(a1);
 //
 //        List<Aluno> alunos = new ArrayList<>();
 //        alunos.add(a1);
@@ -94,15 +88,15 @@ public class Teste implements CommandLineRunner {
 //        Disciplina d3 = new Disciplina();
 //
 //        d1.setCodigo("123");d1.setNome("Matematica");d1.setAlunos(alunos);
-//        disciplinaDAO.save(d1);
+//        disciplinaRepository.save(d1);
 //        lista.add(d1);
 //
 //        d2.setCodigo("456");d2.setNome("Portugues");d2.setAlunos(alunos);
-//        disciplinaDAO.save(d2);
+//        disciplinaRepository.save(d2);
 //        lista.add(d2);
 //
 //        d3.setCodigo("789");d3.setNome("Ciencias");d3.setAlunos(alunos);
-//        disciplinaDAO.save(d3);
+//        disciplinaRepository.save(d3);
 //        lista.add(d3);
 //
 //        for (Disciplina d: lista) {
@@ -119,7 +113,7 @@ public class Teste implements CommandLineRunner {
 //        Aluno a = new Aluno();
 //        a.setNome("joao");a.setCpf("09876543212");a.setMatricula("456");a.setEmail("joao@gmail.com");
 //        a.setDataNascimento(data);
-//        alunoDAO.save(a);
+//        alunoRepository.save(a);
 //        System.out.println(a.toString());
 
 //        String nascimento1 = "10/12/2002";
@@ -129,7 +123,7 @@ public class Teste implements CommandLineRunner {
 //        Aluno a1 = new Aluno();
 //        a1.setNome("giovana");a1.setCpf("09812365487");a1.setMatricula("789");a1.setEmail("giovana@gmail.com");
 //        a1.setDataNascimento(data1);
-//        alunoDAO.save(a1);
+//        alunoRepository.save(a1);
 //        System.out.println(a1.toString());
 //
 //        String nascimento2 = "13/12/2002";
@@ -139,7 +133,7 @@ public class Teste implements CommandLineRunner {
 //        Aluno a2 = new Aluno();
 //        a2.setNome("arthur");a2.setCpf("62626262626");a2.setMatricula("098");a2.setEmail("dsjbddds@gmail.com");
 //        a2.setDataNascimento(data2);
-//        alunoDAO.save(a2);
+//        alunoRepository.save(a2);
 //        System.out.println(a2.toString());
 //
 //        String nascimento3 = "16/12/2002";
@@ -149,13 +143,13 @@ public class Teste implements CommandLineRunner {
 //        Aluno a3 = new Aluno();
 //        a3.setNome("adriana");a3.setCpf("90990099099");a3.setMatricula("726");a3.setEmail("jojojo@gmail.com");
 //        a3.setDataNascimento(data3);
-//        alunoDAO.save(a3);
+//        alunoRepository.save(a3);
 //        System.out.println(a3.toString());
 
 //        String nascimento3 = "14/12/2002";
 //        DateTimeFormatter formato3 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 //        LocalDate data3 = LocalDate.parse(nascimento3, formato3);
-//        List<Aluno> lista = alunoDAO.findByDataNascimentoAfter(data3);
+//        List<Aluno> lista = alunoRepository.findByDataNascimentoAfter(data3);
 //
 //        for (Aluno aluno : lista) {
 //            System.out.println(aluno.toString());
@@ -163,23 +157,49 @@ public class Teste implements CommandLineRunner {
 //
 
 //        System.out.println("----------FIND ALUNO AND QUANT DISCIPLINAS CURSADAS----------");
-//        List<AlunosAndQuantDisciplinas> lista = alunoDAO.findAlunosAndQuantDisciplinas();
+//        List<AlunosAndQuantDisciplinas> lista = alunoRepository.findAlunosAndQuantDisciplinas();
 //        System.out.println("Lista: "+ lista);
 //        for (AlunosAndQuantDisciplinas aluno: lista) {
 //            System.out.println("Nome: "+aluno.getNome()+" cursa "+aluno.getQuant()+" disciplinas.");
 //        }
 //
 //        System.out.println("----------FIND ALUNO AND EMAIL----------");
-//        Aluno a = alunoDAO.findNomeAndEmail("098");
+//        Aluno a = alunoRepository.findNomeAndEmail("098");
 //        System.out.println("Aluno: "+ a);
 //        System.out.println("Nome: "+ a.getNome()+" email: "+a.getEmail());
 
 //        System.out.println("----------FIND ALUNO AND DISCIPLINAS----------");
-//        List<Aluno> lista = alunoDAO.findAlunoAndDisciplinasByNomeContaining("a");
+//        List<Aluno> lista = alunoRepository.findAlunoAndDisciplinasByNomeContaining("a");
 //        System.out.println("Lista: "+lista);
 //        for (Aluno aluno : lista) {
 //            System.out.println("Nome: "+aluno.getNome()+" disciplinas: "+aluno.getDisciplinas());
 //        }
+
+
+//        System.out.println("----------MATRICULAR DISCIPLINAS----------");
+//        Disciplina d = disciplinaRepository.findByCodigo("098765");// ciencias  3
+
+        //Digite o codigo da disciplina
+//        Disciplina d = disciplinaRepository.findByCodigo("654321");// portugues 2
+//        Set<Disciplina> disciplinaSet = new HashSet<>();
+//        disciplinaSet.add(d);
+//
+//        //Digite a matricula dos alunos
+//        Aluno a = alunoRepository.findAlunoId(6); // giovana  6  123
+//        Aluno a1 = alunoRepository.findAlunoId(11);
+//        a.getDisciplinas().addAll(disciplinaSet);
+//        alunoRepository.save(a);
+//        a1.getDisciplinas().addAll(disciplinaSet);
+//        alunoRepository.save(a1);
+
+//        System.out.println("----------TESTE-----------");
+//        Disciplina d = disciplinaRepository.findDisciplinaAndAlunosByCodigo("1111");
+//        System.out.println("Disciplina.ToString" + d.toString());
+//        listDisciplinaAndAlunosMatriculados(d);
+//        List<Aluno> lista = alunoRepository.findAlunoAndDisciplinasByNomeContainingIgnoreCase("adriana");
+//        System.out.println("ALUNO(1) da lista: "+ lista.get(0).toString());
+//        listDisciplinasCursadasPorAluno(lista);
+//        System.out.println("----------FIM-----------");
 
     }
 
