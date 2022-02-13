@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
+public interface AlunoDAO extends JpaRepository<Aluno, Integer> {
 
     public Aluno findByMatricula(String matricula);
 

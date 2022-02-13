@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
-import trabalho2.dao.AlunoRepository;
-import trabalho2.dao.DisciplinaRepository;
+import trabalho2.dao.AlunoDAO;
+import trabalho2.dao.DisciplinaDAO;
 import trabalho2.entity.Aluno;
 import trabalho2.entity.Disciplina;
 
@@ -21,9 +21,9 @@ import java.util.Set;
 @ComponentScan("trabalho2")
 public class InserirAlunos implements CommandLineRunner{
     @Autowired
-    private DisciplinaRepository disciplinaRepository;
+    private DisciplinaDAO disciplinaDAO;
     @Autowired
-    private AlunoRepository alunoRepository;
+    private AlunoDAO alunoDAO;
 
     @Override
     @Transactional
@@ -41,7 +41,7 @@ public class InserirAlunos implements CommandLineRunner{
         historia.setId(3);
 
         Disciplina ciencias = new Disciplina();
-        ciencias.setId(4);
+        ciencias.setId(5);
 
         Set<Disciplina> lista1 = new HashSet<>();
         Aluno a1 = new Aluno();
@@ -53,7 +53,7 @@ public class InserirAlunos implements CommandLineRunner{
         lista1.add(portugues);
         lista1.add(ciencias);
         a1.setDisciplinas(lista1);
-        alunoRepository.save(a1);
+        alunoDAO.save(a1);
 
         Set<Disciplina> lista2 = new HashSet<>();
         Aluno a2 = new Aluno();
@@ -65,7 +65,7 @@ public class InserirAlunos implements CommandLineRunner{
         lista2.add(portugues);
         lista2.add(matematica);
         a2.setDisciplinas(lista2);
-        alunoRepository.save(a2);
+        alunoDAO.save(a2);
 
 
         Set<Disciplina> lista3 = new HashSet<>();
@@ -78,7 +78,7 @@ public class InserirAlunos implements CommandLineRunner{
         lista3.add(ciencias);
         lista3.add(historia);
         a3.setDisciplinas(lista3);
-        alunoRepository.save(a3);
+        alunoDAO.save(a3);
 
         Set<Disciplina> lista4 = new HashSet<>();
         Aluno a4 = new Aluno();
@@ -90,7 +90,7 @@ public class InserirAlunos implements CommandLineRunner{
         lista4.add(historia);
         lista4.add(matematica);
         a4.setDisciplinas(lista4);
-        alunoRepository.save(a4);
+        alunoDAO.save(a4);
 
         //NAO MATRICULADO EM NENHUMA DISCIPLINA
         Aluno a5 = new Aluno();
@@ -99,7 +99,7 @@ public class InserirAlunos implements CommandLineRunner{
         a5.setNome("Antônio Anderson");
         a5.setEmail("anderson@gmail.com");
         a5.setDataNascimento(LocalDate.parse("20/05/1999", dateFormatter));
-        alunoRepository.save(a5);
+        alunoDAO.save(a5);
 
         //NAO MATRICULADO EM NENHUMA DISCIPLINA
         Aluno a6 = new Aluno();
@@ -108,7 +108,7 @@ public class InserirAlunos implements CommandLineRunner{
         a6.setNome("Arthur Vieira");
         a6.setEmail("arthur@gmail.com");
         a6.setDataNascimento(LocalDate.parse("24/01/1998", dateFormatter));
-        alunoRepository.save(a6);
+        alunoDAO.save(a6);
 
     }
 

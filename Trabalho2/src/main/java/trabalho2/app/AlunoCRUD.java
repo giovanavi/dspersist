@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
-import trabalho2.dao.AlunoRepository;
+import trabalho2.dao.AlunoDAO;
 import trabalho2.dao.AlunosAndQuantDisciplinas;
-import trabalho2.dao.DisciplinaRepository;
+import trabalho2.dao.DisciplinaDAO;
 import trabalho2.dao.NomeAndEmailAluno;
 import trabalho2.entity.Aluno;
 import trabalho2.entity.Disciplina;
@@ -27,9 +27,9 @@ import java.util.Set;
 @ComponentScan("trabalho2")
 public class AlunoCRUD implements CommandLineRunner {
     @Autowired
-    private AlunoRepository alunoRepository;
+    private AlunoDAO alunoDAO;
     @Autowired
-    private DisciplinaRepository disciplinaRepository;
+    private DisciplinaDAO disciplinaDAO;
 
     @Transactional
     public void run(String... args) {
@@ -46,52 +46,52 @@ public class AlunoCRUD implements CommandLineRunner {
             switch (op) {
                 case "1": {//INSERIR ALUNO
                     setAluno(a);
-                    alunoRepository.save(a);
+                    alunoDAO.save(a);
                     break;
                 }
                 case "2": {//MATRICULAR ALUNO EM DISCIPLINAS
                     String matricula = JOptionPane.showInputDialog("Digite a matricula do aluno");
-                    a = alunoRepository.findByMatricula(matricula);
+                    a = alunoDAO.findByMatricula(matricula);
                     if(find(a)){
                         Set<Disciplina> disciplinas = matricular();
                         if(a.getDisciplinas()==null)
                             a.setDisciplinas(disciplinas);
                         else
                             a.getDisciplinas().addAll(disciplinas);
-                        alunoRepository.save(a);
+                        alunoDAO.save(a);
                     }
                     break;
                 }
                 case "3": {//UPDATE POR MATRICULA
                     String matricula = JOptionPane.showInputDialog(null, "Digite a matricula do " +
                             "aluno a ser alterado:");
-                    a = alunoRepository.findByMatricula(matricula);
+                    a = alunoDAO.findByMatricula(matricula);
                     if (find(a)) {
                         setAluno(a);
-                        alunoRepository.save(a);
+                        alunoDAO.save(a);
                     }
                     break;
                 }
                 case "4": {//LISTAR ALUNOS
-                    List<Aluno> lista = alunoRepository.findAll();
+                    List<Aluno> lista = alunoDAO.findAll();
                     listAlunos(lista);
                     break;
                 }
                 case "5": {//LISTAR POR NOME
                     String nome = JOptionPane.showInputDialog("Digite o nome do aluno:");
-                    List<Aluno> lista = alunoRepository.findByNomeContainingIgnoreCase(nome);
+                    List<Aluno> lista = alunoDAO.findByNomeContainingIgnoreCase(nome);
                     listAlunos(lista);
                     break;
                 }
                 case "6": {//BUSCAR NOME E EMAIL POR MATRICULA
                     String matricula = JOptionPane.showInputDialog("Digite a matricula do aluno:");
-                    NomeAndEmailAluno aluno = alunoRepository.findNomeAndEmailByMatricula(matricula);
+                    NomeAndEmailAluno aluno = alunoDAO.findNomeAndEmailByMatricula(matricula);
                     listNomeAndMatricula(aluno);
                     break ;
                 }
                 case "7": {//BUSCAR POR ALUNO ID
                     String id = JOptionPane.showInputDialog("Digite o id do aluno:");
-                    a = alunoRepository.findAlunoId(Integer.parseInt(id));
+                    a = alunoDAO.findAlunoId(Integer.parseInt(id));
                     listAluno(a);
                     break ;
                 }
@@ -99,34 +99,34 @@ public class AlunoCRUD implements CommandLineRunner {
                     String data = JOptionPane.showInputDialog("Digite a data:");
                     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     LocalDate dataFormatada = LocalDate.parse(data, formato);
-                    List<Aluno> lista = alunoRepository.findByDataNascimentoAfter(dataFormatada);
+                    List<Aluno> lista = alunoDAO.findByDataNascimentoAfter(dataFormatada);
                     listAlunos(lista);
                     break ;
                 }
                 case "9":{//LISTAR ALUNOS E A SUA QUANT DE DISCIPLINAS CURSADAS
-                    List<AlunosAndQuantDisciplinas> lista = alunoRepository.findAlunosAndQuantDisciplinas();
+                    List<AlunosAndQuantDisciplinas> lista = alunoDAO.findAlunosAndQuantDisciplinas();
                     listAlunosAndQuantDisciplinas(lista);
                     break ;
                 }
                 case "10":{//LISTAR ALUNOS E SUAS RESPECTIVAS DISCIPLINAS
                      String nome = JOptionPane.showInputDialog("Digite o nome do aluno:");
-                    List<Aluno> lista = alunoRepository.findAlunoAndDisciplinasByNomeContainingIgnoreCase(nome);
+                    List<Aluno> lista = alunoDAO.findAlunoAndDisciplinasByNomeContainingIgnoreCase(nome);
                     listDisciplinasCursadasPorAluno(lista);
                     break;
                 }
                 case "11":{//EXCLUIR ALUNO POR ID
                     String id = JOptionPane.showInputDialog("Digite o id do aluno:");
-                    a = alunoRepository.findAlunoId(Integer.parseInt(id));
+                    a = alunoDAO.findAlunoId(Integer.parseInt(id));
                     if(find(a)) {
-                        alunoRepository.delete(a);
+                        alunoDAO.delete(a);
                     }
                     break;
                 }
                 case "12":{//EXCLUIR ALUNO POR MATRICULA
                     String matricula = JOptionPane.showInputDialog("Digite a matricula do aluno:");
-                    a = alunoRepository.findByMatricula(matricula);
+                    a = alunoDAO.findByMatricula(matricula);
                     if(find(a)) {;
-                        alunoRepository.delete(a);
+                        alunoDAO.delete(a);
                     }
                     break;
                 }
@@ -182,8 +182,11 @@ public class AlunoCRUD implements CommandLineRunner {
             }
             sb.append("\n");
         }
-        if(!sb.isEmpty())
+        if(!sb.isEmpty()) {
             JOptionPane.showMessageDialog(null, sb.toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum aluno cursa nenhuma disciplina");
+        }
     }
 
     public static void listAlunosAndQuantDisciplinas(List<AlunosAndQuantDisciplinas> lista){
@@ -197,8 +200,11 @@ public class AlunoCRUD implements CommandLineRunner {
             }
             sb.append("\n");
         }
-        if(!sb.isEmpty())
+        if(!sb.isEmpty()) {
             JOptionPane.showMessageDialog(null, sb.toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum aluno cursa nenhuma disciplina");
+        }
     }
 
     public static void listAlunos(List<Aluno> lista){
@@ -215,9 +221,11 @@ public class AlunoCRUD implements CommandLineRunner {
     }
 
     public static void listNomeAndMatricula(NomeAndEmailAluno aluno){
-        if(aluno!=null){
-                JOptionPane.showMessageDialog(null, "nome: " + aluno.getNome()
-                        + " - email: " + aluno.getEmail());
+        if(aluno==null){
+            JOptionPane.showMessageDialog(null, "Aluno não encontrado");
+        }else{
+            JOptionPane.showMessageDialog(null, "nome: " + aluno.getNome()
+                    + "\nemail: " + aluno.getEmail());
         }
     }
 
@@ -254,7 +262,7 @@ public class AlunoCRUD implements CommandLineRunner {
             Disciplina disciplina;
             String codigo = JOptionPane.showInputDialog(null, "Digite o código da disciplina a ser matriculada. (Digite 0 para sair)");
             if(Integer.parseInt(codigo) != 0){
-                disciplina = disciplinaRepository.findByCodigo(codigo);
+                disciplina = disciplinaDAO.findByCodigo(codigo);
                 if(disciplina != null){
                     JOptionPane.showMessageDialog(null, "Aluno matriculado em "+disciplina);
                     disciplinas.add(disciplina);

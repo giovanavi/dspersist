@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a47d70-81da-484c-be72-fe2210beca87" name="Changes" comment="lista7">
+      <change afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/app/AlunoCRUD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/app/InserirAlunos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/app/Principal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lista7/dao/FuncionarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lista7/dao/FuncionarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/app/AlunoCRUD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/app/DisciplinaCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/app/DisciplinaCRUD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/app/Principal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/dao/AlunoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/dao/AlunoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/dao/DisciplinaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/dao/DisciplinaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/entity/Aluno.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/entity/Aluno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabalho2/src/main/java/entity/Disciplina.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Trabalho2/src/main/java/trabalho2/entity/Disciplina.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +46,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Professor/praticas_dspersist_2021/modulo02/exemplo-dao-spring-jpa" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

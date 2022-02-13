@@ -20,9 +20,6 @@ public class Principal {
 
     public static void main(String[] args) {
 
-//        SpringApplicationBuilder builder = new SpringApplicationBuilder(InserirAlunos.class);
-//        builder.headless(false).run();
-
         label:
         while (true) {
             String op = menu();
@@ -42,7 +39,7 @@ public class Principal {
                     builder.headless(false).run();
                     break;
                 }
-                case "3": {//Menu Disciplinas
+                case "3": {//Classe Adicionar Alunos
                     SpringApplicationBuilder builder = new SpringApplicationBuilder(InserirAlunos.class);
                     builder.headless(false).run();
                     break;
@@ -56,12 +53,13 @@ public class Principal {
         }
 
     }
+
     public static String menu(){
         return JOptionPane.showInputDialog("""
                 Selecione uma opção:
                 1 - Menu Alunos
                 2 - Menu Disciplinas
-                3 - Class Inserir Alunos
+                3 - Classe Adicionar Alunos
                 4 - Fechar menu""");
     }
 
